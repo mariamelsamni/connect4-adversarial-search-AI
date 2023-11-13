@@ -18,30 +18,30 @@ class GUI(QMainWindow):
         self.label.setGeometry(0, 0, width, height)
         self.btns = []
         self.player = 0
-        for i in range(7):
-            col = []
-            for j in range(6):
+        for i in range(6):
+            row = []
+            for j in range(7):
                 btn = QPushButton("", self)
-                btn.setGeometry(100 * i + 10, 100 * j + 10, 80, 80)
+                btn.setGeometry(100 * j + 10, 100 *i + 10, 80, 80)
                 btn.setStyleSheet("border-radius: 40%; border: 2px solid black; background-color: white")
-                col.append(btn)
-            self.btns.append(col)
+                row.append(btn)
+            self.btns.append(row)
 
-        for i in range(7):
-            for j in range(6):
+        for i in range(6):
+            for j in range(7):
                 self.btns[i][j].clicked.connect(self.clickme)
         self.show()
 
     def clickme(self):
-        for i in range(7):
-            for j in range(6):
+        for i in range(6):
+            for j in range(7):
                 if self.sender() == self.btns[i][j]:
                     button = self.btns[i][j]
                     if button.text() != "":
                         return
-                    for k in range(5, j, -1):
-                        if self.btns[i][k].text() == "":
-                            button = self.btns[i][k];
+                    for k in range(5, i, -1):
+                        if self.btns[k][j].text() == "":
+                            button = self.btns[k][j];
                             break
                     if self.player == 0:
                         button.setStyleSheet("border-radius: 40%; border: 2px solid black; background-color: red")
