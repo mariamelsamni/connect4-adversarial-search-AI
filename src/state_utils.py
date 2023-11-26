@@ -16,5 +16,20 @@ def next_state(state,col):
     state=state|updateRow
     return state
     
-    
+
+#row is a number from 1 to 6
+#col is a number from 1 to 7
+#state is the complete game  
+def get_element(row,col,state):
+    #remove the first unneccesary bits
+    state = state>>22
+    #put the desired row in the first 2*7 bits
+    state = state>>(2*7*(row-1))
+    #remove all the bits after 2*7 bits "the bits that we need"
+    state = ((1<<(2*7))-1) & state
+
+    #get the bits of the desired column
+    result = (3<<(7-col)) & state
+    return result>>(7-col)
+
 
