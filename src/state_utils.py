@@ -4,11 +4,13 @@ def next_state(state,col):
     turn=(1 & state)+1
     row=(state >> 3*(7-col)+1) & 7  #position of last play
     if(row==6):return False
-    shift=1 + 7*3+ row*7*3 + (7-col)*3
+    shift=1 + 7*3+ row*7*2 + (7-col)*2
+    state &=  ~(3<<shift)
     new_coin_pos=turn<< shift   #0000coin0000
     state=state | new_coin_pos  #add coin to state
+    
     row+=1   #update number of last row in that col
-    shift=1 + 7*3+ row*7*3 + (7-col)*3
+    shift=1 + 7*3+ row*7*2 + (7-col)*2
     new_coin_pos=3<< shift   #0000coin0000
     state=state | new_coin_pos  #add coin to state
     state=state ^ 1  #switch turn
