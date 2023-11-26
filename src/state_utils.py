@@ -7,8 +7,12 @@ def next_state(state,col):
     shift=1 + 7*3+ row*7*3 + (7-col)*3
     new_coin_pos=turn<< shift   #0000coin0000
     state=state | new_coin_pos  #add coin to state
+    row+=1   #update number of last row in that col
+    shift=1 + 7*3+ row*7*3 + (7-col)*3
+    new_coin_pos=3<< shift   #0000coin0000
+    state=state | new_coin_pos  #add coin to state
     state=state ^ 1  #switch turn
-    row+=1           #update number of last row in that col
+           
     updateRow= row << 3*(7-col)+1
     clear_row_pos=7<<(3*(7-col)+1)
     clear_row_pos= ~clear_row_pos
