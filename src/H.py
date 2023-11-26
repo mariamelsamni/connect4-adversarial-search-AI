@@ -1,5 +1,5 @@
 def H(state):
-    # (c1*score + c2*consective3 + c3*consective2 + c4*consective1) - (c1*score + c2*consective3 + c3*consective2 + c4*consective1)
+    # (2000*score + 1000*consective3+available1 + 100*consective3+unavailable1 + 20*consective2 + 10*consective1) - (2000*score + 1000*consective3+available1 + 100*consective3+unavailable1 + 20*consective2 + 10*consective1)
     H_value = 0
 
 
@@ -252,6 +252,17 @@ def calculate(player,computer,available_e,unavailable_e):
         result *= -1
     return result
 
-
+#row is a number from 1 to 6
+#col is a number from 1 to 7
+#state is the complete game  
 def get_element(row,col,state):
-    return 0
+    #remove the first unneccesary bits
+    state = state>>22
+    #put the desired row in the first 2*7 bits
+    state = state>>(2*7*(row-1))
+    #remove all the bits after 2*7 bits "the bits that we need"
+    state = ((1<<(2*7))-1) & state
+
+    #get the bits of the desired column
+    result = (3<<(7-col)) & state
+    return result>>(7-col)
