@@ -117,6 +117,6 @@ if  __name__ == '__main__':
     initial_state=2**14 - 1
     initial_state<<= 7*3+1
     # x=next_state(initial_state,5)
-    print(value(None, initial_state, 0, 5)[1])
+    print(value(None, initial_state, 0, 2)[1])
     print(root.action)
     # print_tree(root,bool=True)
