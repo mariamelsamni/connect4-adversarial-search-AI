@@ -54,13 +54,14 @@ def get_element(row,col,state):
     return (state>>1+3*7+(row-1)*2*7+(7-col)*2)&3
 
 def check_score(count,player):
-    global computerScore
-    global playerScore
+    scores = [0, 0]
     if count==3 :
-        if player-1==0: computerScore += 1  
-        else: playerScore += 1 
+        if player-1==0: scores[0] += 1
+        else: scores[1] += 1
+    return scores
         
 def update_score(state,row,col,player):
+    scores = [0, 0]
     count=0
     # print(row,col)
     for i in range (1,4):
@@ -70,36 +71,47 @@ def update_score(state,row,col,player):
             # print("i")
             count+=1
         else :break
-    check_score(count,player)
+    change = check_score(count,player)
+    scores[0] += change[0]
+    scores[1] += change[1]
     count=0
     for i in range (1,4):
         if col+i >7: break
         if get_element(row,col+i,state)==player:
             count+=1
         else :break
-    check_score(count,player)
+    change = check_score(count, player)
+    scores[0] += change[0]
+    scores[1] += change[1]
     count=0  
     for i in range (1,4):
         if col-i <1: break
         if get_element(row,col+i,state)==player:
             count+=1
         else :break
-        
-    check_score(count,player)
+
+    change = check_score(count, player)
+    scores[0] += change[0]
+    scores[1] += change[1]
     count=0  
     for i in range (1,4):
         if col-i <1 or row-i<1: break
         if get_element(row-i,col-i,state)==player:
             count+=1
         else :break
-    check_score(count,player) 
+    change = check_score(count, player)
+    scores[0] += change[0]
+    scores[1] += change[1]
     count=0  
     for i in range (1,4):
         if col+i >7 or row-i<1: break
         if get_element(row-i,col+i,state)==player:
             count+=1
         else :break
-    check_score(count,player)
+    change = check_score(count, player)
+    scores[0] += change[0]
+    scores[1] += change[1]
+    return scores
     
 def scores():
     return computerScore,playerScore

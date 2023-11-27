@@ -37,6 +37,10 @@ class GUI(QMainWindow):
         self.player = 0
         self.state = 2**14 - 1
         self.state <<= 7 * 3 + 1
+
+        self.computerscore = 0
+        self.playerscore = 0
+
         for i in range(6):
             row = []
             for j in range(7):
@@ -60,7 +64,8 @@ class GUI(QMainWindow):
             for j in range(7):
                 if self.sender() == self.btns[i][j]:
                     self.changeboard(j, i)
-        if self.player == 0:self.changeboard(value(None, self.state, 0, 2)[1] - 1)
+        if self.player == 0:
+            self.changeboard(value(None, self.state, 0, 2)[1] - 1)
 
 
     def changeboard(self, col, row=0):
@@ -72,17 +77,83 @@ class GUI(QMainWindow):
         for k in range(5, row, -1):
             if self.btns[k][col].text() == "":
                 button = self.btns[k][col]
+                row = k
                 break
         if self.player == 0:
             button.setStyleSheet("border-radius: 40%; border: 2px solid black; background-color: red")
         else:
             button.setStyleSheet("border-radius: 40%; border: 2px solid black; background-color: yellow")
-        button.setText(" ")
+        button.setText((self.player+1)*" ")
+        self.scores(row, col)
         self.state = next_state(self.state, col+1)
-        update_score(self.state, row, col+1, self.player)
         self.player = 1 - self.player
-        computerScore, playerScore = scores()
-        self.label2.setText(f"Computer: {computerScore}                    Player: {playerScore}")
+        self.label2.setText(f"Computer: {self.computerscore}                    Player: {self.playerscore}")
+
+    def scores(self, row, col):
+        str = self.btns[row][col].text()
+        score = 0
+
+        count = 0
+        for i in range(row, 6):
+            if self.btns[i][col].text() != str:
+                break
+            count += 1
+        if count >= 4: score += 1
+
+        count = 0
+        for i in range(4):
+            if col < i: break
+            if col > i + 3: continue
+            for j in range(i, i + 4):
+                if self.btns[row][j].text() != str:
+                    break
+                count += 1
+            if count == 4: score += 1
+            count = 0
+
+        mn = min(row, col)
+        i = row - mn
+        j = col - mn
+        while i < 3 and j < 4:
+            if row < i:
+                break
+            if row > i + 3:
+                i += 1
+                j += 1
+                continue
+            for k in range(4):
+                if self.btns[i+k][j+k].text() != str:
+                    break
+                count += 1
+            if count == 4: score += 1
+            count = 0
+            i += 1
+            j += 1
+
+        mn = min(row, 6 - col)
+        i = row - mn
+        j = col + mn
+        while i < 3 and j > 2:
+            if row < i:
+                break
+            if row > i + 3:
+                i += 1
+                j -= 1
+                continue
+            for k in range(4):
+                if self.btns[i + k][j - k].text() != str:
+                    break
+                count += 1
+            if count == 4: score += 1
+            count = 0
+            i += 1
+            j -= 1
+
+        if self.player == 0: self.computerscore += score
+        else: self.playerscore += score
+
+
+
 
 
 

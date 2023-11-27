@@ -7,6 +7,7 @@
     <list default="true" id="cd3330ea-5fbb-43ba-9293-cc41f8e7822a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/state_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/state_utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +36,7 @@
   }
 }</component>
   <component name="RunManager">
-    <configuration name="minimax" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+    <configuration name="GUI" type="PythonConfigurationType" factoryName="Python">
       <module name="connect4" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -47,7 +48,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/minimax.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/GUI.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
