@@ -1,4 +1,4 @@
-def H(state):
+def getHeuristic(state):
     # (2000*score + 1000*consective3+available1 + 100*consective3+unavailable1 + 20*consective2 + 10*consective1) - (2000*score + 1000*consective3+available1 + 100*consective3+unavailable1 + 20*consective2 + 10*consective1)
     H_value = 0
 
@@ -235,7 +235,7 @@ def H(state):
 
     return H_value
 
-def calculate(player,computer,available_e,unavailable_e):
+def calculate(computer,player,available_e,unavailable_e):
     result = 0
     if(not( (available_e+unavailable_e==4) or (player>0 and computer>0) )):
         if(player==4 or computer==4):
@@ -257,12 +257,13 @@ def calculate(player,computer,available_e,unavailable_e):
 #state is the complete game  
 def get_element(row,col,state):
     #remove the first unneccesary bits
-    state = state>>22
-    #put the desired row in the first 2*7 bits
-    state = state>>(2*7*(row-1))
-    #remove all the bits after 2*7 bits "the bits that we need"
-    state = ((1<<(2*7))-1) & state
+    # state = state>>22
+    # #put the desired row in the first 2*7 bits
+    # state = state>>(2*7*(row-1))
+    # #remove all the bits after 2*7 bits "the bits that we need"
+    # state = ((1<<(2*7))-1) & state
 
-    #get the bits of the desired column
-    result = (3<<(7-col)) & state
-    return result>>(7-col)
+    # #get the bits of the desired column
+    # result = (3<<(7-col)) & state
+    # return result>>(7-col)
+    return (state>>1+3*7+(row-1)*2*7+(7-col)*2)&3

@@ -2,11 +2,16 @@ computerScore=0
 playerScore=0
 #col is number from 1 to 7
 #row should be from 0 for empty to 6 last row
+def decimalToBinary(n):  
+    return bin(n).replace("0b", "")  
 def next_state(state,col):
+    # print("debug")
+    # print(decimalToBinary(state))
+    # print(col)
     turn=(1 & state) + 1
     row=(state >> 3*(7-col)+1) & 7   #position of last play
     row+=1   #update number of last row in that col
-    if(row>6):return False
+    if(row>6):return -1
     
     shift=1 + 7*3+ (row-1)*7*2 + (7-col)*2
    

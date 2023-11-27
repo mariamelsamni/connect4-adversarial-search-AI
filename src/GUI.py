@@ -41,7 +41,7 @@ class GUI(QMainWindow):
                         return
                     for k in range(5, i, -1):
                         if self.btns[k][j].text() == "":
-                            button = self.btns[k][j];
+                            button = self.btns[k][j]
                             break
                     if self.player == 0:
                         button.setStyleSheet("border-radius: 40%; border: 2px solid black; background-color: red")

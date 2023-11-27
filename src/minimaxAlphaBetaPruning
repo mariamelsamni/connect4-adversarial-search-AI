@@ -1,14 +1,7 @@
 
-
+from H import *
+from state_utils import *
 # dummy functions
-def getHeuristic():
-    return 0
-
-def next_state(state, col):
-    return state
-
-def is_valid_state(state, col):
-    return False       
 
 
 
@@ -25,11 +18,12 @@ def max_value(state, k, maxK, alpha, beta):
 
 
     v = -1000000000000000000000000000
-    for i in [1,2,3,4,5,6,7,8]:
+    for i in [1,2,3,4,5,6,7]:
 
-        if is_valid_state(state, i):
+        nextState = next_state(state, i)
+        if nextState!=-1:
             
-            v = max(v, value( next_state(state, i), k+1, maxK, alpha, beta))
+            v = max(v, value( nextState, k+1, maxK, alpha, beta))
             alpha=max(alpha, v)
             if alpha >= beta:
                 return alpha
@@ -42,11 +36,12 @@ def min_value(state, k, maxK, alpha, beta):
 
 
     v = 10000000000000000000000000000
-    for i in [1,2,3,4,5,6,7,8]:
+    for i in [1,2,3,4,5,6,7]:
 
-        if is_valid_state(state, i):
+        nextState = next_state(state, i)
+        if nextState!=-1:
             
-            v = min(v, value( next_state(state, i), k, maxK, alpha, beta))
+            v = min(v, value( nextState, k+1, maxK, alpha, beta))
             beta=min(beta,v)
             if (alpha >= beta):
                 return beta
@@ -58,3 +53,7 @@ def min_value(state, k, maxK, alpha, beta):
 
 if  __name__ == '__main__':
     print("yes")
+    initial_state=2**14 - 1
+    initial_state<<= 7*3+1
+    value(initial_state, 0,8,-10000000000000000000000000000,10000000000000000000000000000)
+    print("done")
