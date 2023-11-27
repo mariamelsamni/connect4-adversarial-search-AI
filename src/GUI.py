@@ -1,4 +1,6 @@
+import threading
 import time
+from multiprocessing import Process
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
@@ -52,11 +54,15 @@ class GUI(QMainWindow):
 
         for i in range(6):
             for j in range(7):
-                self.btns[i][j].clicked.connect(self.play)
+                self.btns[i][j].clicked.connect(self.thread)
 
-        self.changeboard(value(None, self.state, 0, 2)[1]-1)
+        self.changeboard(value(None, self.state, 0, 6)[1]-1)
         self.show()
 
+    def thread(self):
+        t1 = threading.Thread(target=self.play)
+        t1.start()
+        
     def play(self):
         if self.player == 0:
             return
@@ -64,14 +70,13 @@ class GUI(QMainWindow):
             for j in range(7):
                 if self.sender() == self.btns[i][j]:
                     self.changeboard(j, i)
+
         if self.player == 0:
-            self.changeboard(value(None, self.state, 0, 2)[1] - 1)
+            self.changeboard(value(None, self.state, 0, 6)[1] - 1)
 
 
     def changeboard(self, col, row=0):
         button = self.btns[row][col]
-        print(self.player)
-        print(row, col)
         if button.text() != "":
             return
         for k in range(5, row, -1):
@@ -83,7 +88,11 @@ class GUI(QMainWindow):
             button.setStyleSheet("border-radius: 40%; border: 2px solid black; background-color: red")
         else:
             button.setStyleSheet("border-radius: 40%; border: 2px solid black; background-color: yellow")
+            time.sleep(1)
         button.setText((self.player+1)*" ")
+
+        
+
         self.scores(row, col)
         self.state = next_state(self.state, col+1)
         self.player = 1 - self.player

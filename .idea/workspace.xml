@@ -7,7 +7,6 @@
     <list default="true" id="cd3330ea-5fbb-43ba-9293-cc41f8e7822a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/state_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/state_utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
