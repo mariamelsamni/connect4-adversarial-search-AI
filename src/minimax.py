@@ -23,7 +23,7 @@ def value(node, state, k, maxK):
 
         # tree
         # node.value = h
-        return h
+        return h,0
         
     
     if (k%2==0):
@@ -35,6 +35,7 @@ def max_value(node, state, k, maxK):
 
 
     v = -1000000000000000000000000000
+    col = -1
     for i in [1,2,3,4,5,6,7]:
 
         nextState = next_state(state, i)
@@ -45,32 +46,35 @@ def max_value(node, state, k, maxK):
             # child = Node(nextState, k + 1)
             # node.children.append(child)
             child=None
-            curr = value(child, nextState, k + 1, maxK)
+            curr = value(child, nextState, k + 1, maxK)[0]
             if (curr>v):
                 v=curr
+                col = i
                 # node.action=i
             
 
     # node.value = v
-    return v
+    return v,col
 
 def min_value(node,state, k, maxK):
 
 
     v = 10000000000000000000000000000
+    col = -1
     for i in [1,2,3,4,5,6,7]:
         nextState = next_state(state, i)
         if nextState!=-1:
             # child = Node(nextState, k + 1)
             # node.children.append(child)
             child=None
-            curr = value(child, nextState, k + 1, maxK)
+            curr = value(child, nextState, k + 1, maxK)[0]
             if (curr<v):
                 v=curr
+                col = i
                 # node.action=i
             
     # node.value = v
-    return v 
+    return v ,col
 
 
 
@@ -113,6 +117,6 @@ if  __name__ == '__main__':
     initial_state=2**14 - 1
     initial_state<<= 7*3+1
     # x=next_state(initial_state,5)
-    value(None, initial_state, 0, 6)
+    print(value(None, initial_state, 0, 5)[1])
     print(root.action)
     # print_tree(root,bool=True)
