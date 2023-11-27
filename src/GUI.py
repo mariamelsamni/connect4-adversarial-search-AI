@@ -1,3 +1,5 @@
+import time
+
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import *
@@ -22,6 +24,7 @@ class GUI(QMainWindow):
         self.btns = []
         self.player = 0
         self.state = 2**14 - 1
+        self.state <<= 7 * 3 + 1
         for i in range(6):
             row = []
             for j in range(7):
@@ -45,13 +48,13 @@ class GUI(QMainWindow):
             for j in range(7):
                 if self.sender() == self.btns[i][j]:
                     self.changeboard(j, i)
-        self.changeboard(value(None, self.state, 0, 2)[1] - 1)
+        if self.player == 0:self.changeboard(value(None, self.state, 0, 2)[1] - 1)
 
 
     def changeboard(self, col, row=0):
         button = self.btns[row][col]
         print(self.player)
-        print(col)
+        print(row, col)
         if button.text() != "":
             return
         for k in range(5, row, -1):
