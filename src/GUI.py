@@ -12,15 +12,27 @@ class GUI(QMainWindow):
     def __init__(self):
         super().__init__()
         cell = 100
-        height = cell * 6
+        labelheigt = 80
+        height = cell * 6 + labelheigt
         width = cell * 7
+
         self.setWindowTitle('Connect 4')
         center = QDesktopWidget().availableGeometry().center()
         self.setGeometry(center.x() - width // 2, center.y() - height // 2, width, height)
         self.layout2 = QGridLayout()
+
         self.label = QLabel("", self)
         self.label.setStyleSheet("background-color: blue")
-        self.label.setGeometry(0, 0, width, height)
+        self.label.setGeometry(0, labelheigt, width, height - labelheigt)
+
+        self.label2 = QLabel(f"Computer: 0                    Player: 0", self)
+        self.label2.setGeometry(0, 0, width, labelheigt)
+        font = QFont("Arial", 30, QFont.Bold)
+        self.label2.setFont(font)
+        self.label2.setAlignment(Qt.AlignCenter)
+        self.label2.setStyleSheet(
+            "background-color: black; color: red; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;")
+
         self.btns = []
         self.player = 0
         self.state = 2**14 - 1
@@ -29,7 +41,7 @@ class GUI(QMainWindow):
             row = []
             for j in range(7):
                 btn = QPushButton("", self)
-                btn.setGeometry(100 * j + 10, 100 *i + 10, 80, 80)
+                btn.setGeometry(100 * j + 10, 100 *i + 10 + labelheigt, 80, 80)
                 btn.setStyleSheet("border-radius: 40%; border: 2px solid black; background-color: white")
                 row.append(btn)
             self.btns.append(row)
@@ -67,7 +79,11 @@ class GUI(QMainWindow):
             button.setStyleSheet("border-radius: 40%; border: 2px solid black; background-color: yellow")
         button.setText(" ")
         self.state = next_state(self.state, col+1)
+        update_score(self.state, row, col+1, self.player)
         self.player = 1 - self.player
+        computerScore, playerScore = scores()
+        self.label2.setText(f"Computer: {computerScore}                    Player: {playerScore}")
+
 
 
 
