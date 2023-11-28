@@ -28,7 +28,7 @@ def minimaxTree(node, state, k, maxK):
         return h,0
         
     
-    if (k%2==0):
+    if (k%2==1):
         return minimaxTree_max_value (node, state, k, maxK)
     else:
         return minimaxTree_min_value (node, state, k, maxK)

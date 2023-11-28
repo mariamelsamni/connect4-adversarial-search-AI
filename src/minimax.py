@@ -7,7 +7,7 @@ import datetime
 # def is_valid_state(state, col):
 #     return False       
 
-
+count = 0
 class Node:
     def __init__(self,  depth, value=None):
        
@@ -18,21 +18,26 @@ class Node:
 
 
 def minimax(state, k, maxK):
+   
+    global count
+    count+=1
     if (k == maxK):
-
+       
+       
         h =  getHeuristic(state)
         return h,0
         
-    
-    if (k%2==0):
+    print(count)
+    if (k%2==1):
         return minimax_max_value ( state, k, maxK)
     else:
         return minimax_min_value ( state, k, maxK)
 
 def minimax_max_value( state, k, maxK):
 
-
+    global count
     v = -1000000000000000000000000000
+    # count+=1
     col = -1
     for i in [1,2,3,4,5,6,7]:
 
@@ -49,7 +54,8 @@ def minimax_max_value( state, k, maxK):
 
 def minimax_min_value(state, k, maxK):
 
-
+    global count
+    # count+=1
     v = 10000000000000000000000000000
     col = -1
     for i in [1,2,3,4,5,6,7]:
@@ -65,11 +71,13 @@ def minimax_min_value(state, k, maxK):
     return v ,col
 
 def minimax_util(state, k, maxK):
-
+    global count
+    count=0
     time = datetime.datetime.now()
     v, col = minimax(state, k, maxK)
     running_time = datetime.datetime.now() - time
-    print( f" running time of minimax with{k}= {running_time}")
+    print( f" running time of minimax with {maxK} levels= {running_time.microseconds} ms")
+    print(f"number of nodes expanded {count}")
     return v, col
 
 

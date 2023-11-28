@@ -4,13 +4,15 @@ from state_utils import *
 import datetime
 # dummy functions
 
-
+count = 0
 
 def minimaxAlphaBetaPruning(state,k, maxK, alpha, beta):
+    global count
+    count+=1
     if (k == maxK):
         return getHeuristic(state),0
     
-    if (k%2==0):
+    if (k%2==1):
         return minimaxAlphaBetaPruning_max_value (state, k, maxK, alpha, beta)
     else:
         return minimaxAlphaBetaPruning_min_value (state, k, maxK, alpha, beta)
@@ -58,11 +60,13 @@ def minimaxAlphaBetaPruning_min_value(state, k, maxK, alpha, beta):
     return v,col
 
 def minimaxAlphaBetaPruningUtil(state, k, maxK):
-
+    global count
+    count=0
     time = datetime.datetime.now()
     v, col = minimaxAlphaBetaPruning(state,k,maxK,-10000000000000000000000000000,10000000000000000000000000000)
     running_time = datetime.datetime.now() - time
-    print( f" running time of minimax alpha beta pruning with{k}= {running_time}")
+    print( f" running time of minimax alpha beta pruning with{k}= {running_time.microseconds}")
+    print(f"number of nodes expanded {count}")
     return v, col
 
 if  __name__ == '__main__':

@@ -25,7 +25,7 @@ def minimaxAlphaBetaPruningTree(node,state,k, maxK, alpha, beta):
         node.beta = beta
         return h,0
     
-    if (k%2==0):
+    if (k%2==1):
         return minimaxAlphaBetaPruningTree_max_value (node, state, k, maxK, alpha, beta)
     else:
         return minimaxAlphaBetaPruningTree_min_value (node, state, k, maxK, alpha, beta)

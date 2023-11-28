@@ -58,7 +58,7 @@ class GUI(QMainWindow):
             for j in range(7):
                 self.btns[i][j].clicked.connect(self.thread)
 
-        self.changeboard(self.minimaxxx( self.state, 0, self.maxk)[1]-1)
+        self.changeboard(self.minimaxxx( self.state, 1, self.maxk)[1]-1)
         self.show()
 
     def thread(self):
@@ -78,7 +78,7 @@ class GUI(QMainWindow):
 
         if self.player == 0:
             self.remainingGames-=1
-            self.changeboard(self.minimaxxx(self.state, 0, min(self.maxk,self.remainingGames))[1] - 1)
+            self.changeboard(self.minimaxxx(self.state, 1, min(self.maxk,self.remainingGames))[1] - 1)
 
 
     def changeboard(self, col, row=0):
