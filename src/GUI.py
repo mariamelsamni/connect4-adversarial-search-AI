@@ -11,13 +11,14 @@ from state_utils import *
 
 class GUI(QMainWindow):
 
-    def __init__(self):
+    def __init__(self,k, minimaxAlgorithm):
         super().__init__()
         cell = 100
         labelheigt = 80
         height = cell * 6 + labelheigt
         width = cell * 7
-
+        self.maxk=k
+        self.minimaxxx=minimaxAlgorithm
         self.setWindowTitle('Connect 4')
         center = QDesktopWidget().availableGeometry().center()
         self.setGeometry(center.x() - width // 2, center.y() - height // 2, width, height)
@@ -37,6 +38,7 @@ class GUI(QMainWindow):
 
         self.btns = []
         self.player = 0
+        self.remainingGames=42
         self.state = 2**14 - 1
         self.state <<= 7 * 3 + 1
 
@@ -56,7 +58,7 @@ class GUI(QMainWindow):
             for j in range(7):
                 self.btns[i][j].clicked.connect(self.thread)
 
-        self.changeboard(value(None, self.state, 0, 6)[1]-1)
+        self.changeboard(self.minimaxxx( self.state, 0, self.maxk)[1]-1)
         self.show()
 
     def thread(self):
@@ -69,10 +71,12 @@ class GUI(QMainWindow):
         for i in range(6):
             for j in range(7):
                 if self.sender() == self.btns[i][j]:
+                    self.remainingGames-=1
                     self.changeboard(j, i)
 
         if self.player == 0:
-            self.changeboard(value(None, self.state, 0, 6)[1] - 1)
+            self.remainingGames-=1
+            self.changeboard(self.minimaxxx(self.state, 0, min(self.maxK,self.remainingGames))[1] - 1)
 
 
     def changeboard(self, col, row=0):

@@ -15,54 +15,70 @@ class Node:
         self.value = value
         self.action = 0
         self.children = []
+        self.col=0
 
 
-def minimax(state, k, maxK):
+def minimaxTree(node, state, k, maxK):
+
+    node.depth=k
     if (k == maxK):
-
+        
         h =  getHeuristic(state)
-        return h,0
+        node.value = h
+        return h
         
     
     if (k%2==0):
-        return minimax_max_value ( state, k, maxK)
+        return minimaxTree_max_value (node, state, k, maxK)
     else:
-        return minimax_min_value ( state, k, maxK)
+        return minimaxTree_min_value (node, state, k, maxK)
 
-def minimax_max_value( state, k, maxK):
+def minimaxTree_max_value(node, state, k, maxK):
 
 
     v = -1000000000000000000000000000
-    col = -1
-    for i in [1,2,3,4,5,6,7]:
+    for i in [4,5,3,2,1,6,7]:
 
         nextState = next_state(state, i)
         if nextState!=-1:
         
-        
-            curr = minimax( nextState, k + 1, maxK)[0]
+           
+            # tree
+            child = Node(nextState, k + 1)
+            node.children.append(child)
+            child.col=i
+            curr = minimaxTree(child, nextState, k + 1, maxK)
             if (curr>v):
                 v=curr
-                col = i
+                node.action=i
             
-    return v,col
 
-def minimax_min_value(node,state, k, maxK):
+    node.value = v
+    return v,node.action
+
+def minimaxTree_min_value(node,state, k, maxK):
 
 
     v = 10000000000000000000000000000
-    col = -1
-    for i in [1,2,3,4,5,6,7]:
+    for i in [4,5,3,2,1,6,7]:
         nextState = next_state(state, i)
         if nextState!=-1:
-           
-            child=None
-            curr = minimax(child, nextState, k + 1, maxK)[0]
+            child = Node(nextState, k + 1)
+            node.children.append(child)
+            child.col=i
+            curr = minimaxTree(child, nextState, k + 1, maxK)
             if (curr<v):
                 v=curr
-                col = i
-               
-    return v ,col
+                node.action=i
+            
+    node.value = v
+    return v,node.action 
+
+def minimaxTreeUtil(state, k, maxK):
+    root = Node(0, 0)
+    v, col=minimaxTree(root,state,k,maxK)
+    print_tree(root, bool=True)
+    return v, col
 
 
 
@@ -70,10 +86,13 @@ def print_tree(node, level=0, prefix="Root: ", value=0, bool=False):
     if node is not None:
     
         if bool:
-            print("\033[91m"+" " * (level * 4) + prefix + f"Depth: {node.depth}, Value: {node.value}"+"\033[0m")
+            print("\033[91m"+" " * (level * 4) + prefix + f"{node.col} Depth: {node.depth}, Value: {node.value}"+"\033[0m")
         else:
-            print(" " * (level * 4) + prefix + f"Depth: {node.depth}, Value: {node.value}")
+            print(" " * (level * 4) + prefix + f"{node.col} Depth: {node.depth}, Value: {node.value}")
         first=True
+
+        if (node.col==0):
+            node.col=""
         for i, child in enumerate(node.children):
             color=False
             if (child.value==node.value and first):
@@ -86,9 +105,6 @@ def print_tree(node, level=0, prefix="Root: ", value=0, bool=False):
             else:
                 print_tree(child, level + 1, prefix="├── ", value=node.value,bool=color)
 
-
-
-   
 if  __name__ == '__main__':
 
     root = Node(0, 0)
@@ -108,7 +124,6 @@ if  __name__ == '__main__':
     print("yes")
     initial_state=2**14 - 1
     initial_state<<= 7*3+1
-    # x=next_state(initial_state,5)
-    print(minimax(None, initial_state, 0, 2)[1])
+    minimaxTree(root, initial_state, 0, 2)
     print(root.action)
-    # print_tree(root,bool=True)
+    print_tree(root,bool=True)
