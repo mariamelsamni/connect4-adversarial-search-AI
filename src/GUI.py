@@ -28,7 +28,7 @@ class GUI(QMainWindow):
         self.label.setStyleSheet("background-color: blue")
         self.label.setGeometry(0, labelheigt, width, height - labelheigt)
 
-        self.label2 = QLabel(f"Computer: 0                    Player: 0", self)
+        self.label2 = QLabel(f"Computer: 0     Player: 0", self)
         self.label2.setGeometry(0, 0, width, labelheigt)
         font = QFont("Arial", 30, QFont.Bold)
         self.label2.setFont(font)
@@ -62,6 +62,8 @@ class GUI(QMainWindow):
         self.show()
 
     def thread(self):
+        if self.player==0:
+            return
         t1 = threading.Thread(target=self.play)
         t1.start()
         
@@ -76,7 +78,7 @@ class GUI(QMainWindow):
 
         if self.player == 0:
             self.remainingGames-=1
-            self.changeboard(self.minimaxxx(self.state, 0, min(self.maxK,self.remainingGames))[1] - 1)
+            self.changeboard(self.minimaxxx(self.state, 0, min(self.maxk,self.remainingGames))[1] - 1)
 
 
     def changeboard(self, col, row=0):
@@ -92,7 +94,7 @@ class GUI(QMainWindow):
             button.setStyleSheet("border-radius: 40%; border: 2px solid black; background-color: red")
         else:
             button.setStyleSheet("border-radius: 40%; border: 2px solid black; background-color: yellow")
-            time.sleep(1)
+            # time.sleep(1)
         button.setText((self.player+1)*" ")
 
         
@@ -100,7 +102,7 @@ class GUI(QMainWindow):
         self.scores(row, col)
         self.state = next_state(self.state, col+1)
         self.player = 1 - self.player
-        self.label2.setText(f"Computer: {self.computerscore}                    Player: {self.playerscore}")
+        self.label2.setText(f"Computer: {self.computerscore}     Player: {self.playerscore}")
 
     def scores(self, row, col):
         str = self.btns[row][col].text()
@@ -169,8 +171,8 @@ class GUI(QMainWindow):
 
 
 
+if  __name__ == '__main__':
 
-
-App = QApplication(sys.argv)
-g = GUI()
-sys.exit(App.exec_())
+    App = QApplication(sys.argv)
+    g = GUI()
+    sys.exit(App.exec_())

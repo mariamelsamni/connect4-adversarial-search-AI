@@ -1,6 +1,6 @@
 from H import *
 from state_utils import *
-
+import datetime
 
 # dummy functions
 
@@ -47,7 +47,7 @@ def minimax_max_value( state, k, maxK):
             
     return v,col
 
-def minimax_min_value(node,state, k, maxK):
+def minimax_min_value(state, k, maxK):
 
 
     v = 10000000000000000000000000000
@@ -56,35 +56,42 @@ def minimax_min_value(node,state, k, maxK):
         nextState = next_state(state, i)
         if nextState!=-1:
            
-            child=None
-            curr = minimax(child, nextState, k + 1, maxK)[0]
+           
+            curr = minimax( nextState, k + 1, maxK)[0]
             if (curr<v):
                 v=curr
                 col = i
                
     return v ,col
 
+def minimax_util(state, k, maxK):
+
+    time = datetime.datetime.now()
+    v, col = minimax(state, k, maxK)
+    running_time = datetime.datetime.now() - time
+    print( f" running time of minimax with{k}= {running_time}")
+    return v, col
 
 
-def print_tree(node, level=0, prefix="Root: ", value=0, bool=False):
-    if node is not None:
+# def print_tree(node, level=0, prefix="Root: ", value=0, bool=False):
+#     if node is not None:
     
-        if bool:
-            print("\033[91m"+" " * (level * 4) + prefix + f"Depth: {node.depth}, Value: {node.value}"+"\033[0m")
-        else:
-            print(" " * (level * 4) + prefix + f"Depth: {node.depth}, Value: {node.value}")
-        first=True
-        for i, child in enumerate(node.children):
-            color=False
-            if (child.value==node.value and first):
-                color=True
-                first=False
+#         if bool:
+#             print("\033[91m"+" " * (level * 4) + prefix + f"Depth: {node.depth}, Value: {node.value}"+"\033[0m")
+#         else:
+#             print(" " * (level * 4) + prefix + f"Depth: {node.depth}, Value: {node.value}")
+#         first=True
+#         for i, child in enumerate(node.children):
+#             color=False
+#             if (child.value==node.value and first):
+#                 color=True
+#                 first=False
 
-            if i == len(node.children) - 1:
+#             if i == len(node.children) - 1:
                 
-                print_tree(child, level + 1, prefix="└── ", value= node.value,bool=color)
-            else:
-                print_tree(child, level + 1, prefix="├── ", value=node.value,bool=color)
+#                 print_tree(child, level + 1, prefix="└── ", value= node.value,bool=color)
+#             else:
+#                 print_tree(child, level + 1, prefix="├── ", value=node.value,bool=color)
 
 
 

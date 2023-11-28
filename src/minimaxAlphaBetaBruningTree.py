@@ -23,7 +23,7 @@ def minimaxAlphaBetaPruningTree(node,state,k, maxK, alpha, beta):
         node.value = h
         node.alpha = alpha
         node.beta = beta
-        return h
+        return h,0
     
     if (k%2==0):
         return minimaxAlphaBetaPruningTree_max_value (node, state, k, maxK, alpha, beta)
@@ -41,7 +41,7 @@ def minimaxAlphaBetaPruningTree_max_value(node, state, k, maxK, alpha, beta):
             child = Node(nextState, k + 1)
             node.children.append(child)
             child.col=i
-            curr= minimaxAlphaBetaPruningTree(child, nextState, k+1, maxK, alpha, beta)
+            curr= minimaxAlphaBetaPruningTree(child, nextState, k+1, maxK, alpha, beta)[0]
             if curr>v:
                 v=curr
                 node.action=i
@@ -66,7 +66,7 @@ def minimaxAlphaBetaPruningTree_min_value(node, state, k, maxK, alpha, beta):
             child.col=i
             node.children.append(child)
           
-            curr= minimaxAlphaBetaPruningTree(child, nextState, k+1, maxK, alpha, beta)
+            curr= minimaxAlphaBetaPruningTree(child, nextState, k+1, maxK, alpha, beta)[0]
             if (curr<v):
                 v=curr
                 node.action=i

@@ -25,7 +25,7 @@ def minimaxTree(node, state, k, maxK):
         
         h =  getHeuristic(state)
         node.value = h
-        return h
+        return h,0
         
     
     if (k%2==0):
@@ -48,8 +48,8 @@ def minimaxTree_max_value(node, state, k, maxK):
             node.children.append(child)
             child.col=i
             curr = minimaxTree(child, nextState, k + 1, maxK)
-            if (curr>v):
-                v=curr
+            if (curr[0]>v):
+                v=curr[0]
                 node.action=i
             
 
@@ -67,8 +67,8 @@ def minimaxTree_min_value(node,state, k, maxK):
             node.children.append(child)
             child.col=i
             curr = minimaxTree(child, nextState, k + 1, maxK)
-            if (curr<v):
-                v=curr
+            if (curr[0]<v):
+                v=curr[0]
                 node.action=i
             
     node.value = v
