@@ -19,11 +19,9 @@ def minimaxAlphaBetaPruning(state,k, maxK, alpha, beta):
 
 def minimaxAlphaBetaPruning_max_value(state, k, maxK, alpha, beta):
 
-
     v = -1000000000000000000000000000
     col=-1
-    for i in [1,2,3,4,5,6,7]:
-
+    for i in [4,5,3,2,6,1,7]:
 
         nextState = next_state(state, i)
         if nextState!=-1:
@@ -36,15 +34,13 @@ def minimaxAlphaBetaPruning_max_value(state, k, maxK, alpha, beta):
                     break
            
 
-      
-
     return v,col
 
 def minimaxAlphaBetaPruning_min_value(state, k, maxK, alpha, beta):
 
 
     v = 10000000000000000000000000000
-    for i in [1,2,3,4,5,6,7]:
+    for i in [4,5,3,2,6,1,7]:
 
         nextState = next_state(state, i)
         if nextState!=-1:
@@ -65,7 +61,7 @@ def minimaxAlphaBetaPruningUtil(state, k, maxK):
     time = datetime.datetime.now()
     v, col = minimaxAlphaBetaPruning(state,k,maxK,-10000000000000000000000000000,10000000000000000000000000000)
     running_time = datetime.datetime.now() - time
-    print( f" running time of minimax alpha beta pruning with{k}= {running_time.microseconds}")
+    print( f" running time of minimax alpha beta pruning with{maxK}= {running_time.microseconds}")
     print(f"number of nodes expanded {count}")
     return v, col
 

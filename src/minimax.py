@@ -27,7 +27,7 @@ def minimax(state, k, maxK):
         h =  getHeuristic(state)
         return h,0
         
-    print(count)
+    # print(count)
     if (k%2==1):
         return minimax_max_value ( state, k, maxK)
     else:

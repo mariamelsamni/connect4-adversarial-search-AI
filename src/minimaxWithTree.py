@@ -37,7 +37,7 @@ def minimaxTree_max_value(node, state, k, maxK):
 
 
     v = -1000000000000000000000000000
-    for i in [4,5,3,2,1,6,7]:
+    for i in [1,2,3,4,5,6,7]:
 
         nextState = next_state(state, i)
         if nextState!=-1:
@@ -60,7 +60,7 @@ def minimaxTree_min_value(node,state, k, maxK):
 
 
     v = 10000000000000000000000000000
-    for i in [4,5,3,2,1,6,7]:
+    for i in [1,2,3,4,5,6,7]:
         nextState = next_state(state, i)
         if nextState!=-1:
             child = Node(nextState, k + 1)
