@@ -4,6 +4,8 @@ from minimax import *
 from minimaxAlphaBetaPruning import *
 from minimaxWithTree import *
 from minimaxAlphaBetaBruningTree import *
+
+
 def decimalToBinary(n):  
     return bin(n).replace("0b", "")  
 
@@ -23,7 +25,6 @@ if  __name__ == '__main__':
         g = GUI(k,minimaxTreeUtil)
     elif (pruning =="2" and tree_option =="2"):
         g = GUI(k,minimax_util)
-    
-    
+
     
     sys.exit(App.exec_())
